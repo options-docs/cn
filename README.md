@@ -1,3 +1,52 @@
+# 基本信息
+
+## Rest 基本信息
+
+* 接口可能需要用户的 API Key，如何创建API-KEY请参考[这里](https://www.binance.com/cn/support/articles/360002502072)
+* 本篇列出REST接口的baseurl **https://www.binanceops.com**
+* 所有接口的响应都是JSON格式
+* 响应中如有数组，数组元素以时间升序排列，越早的数据越提前。
+* 所有时间、时间戳均为UNIX时间，单位为毫秒
+
+## 接口的基本信息
+
+** GET方法的接口, 参数必须在query string中发送.
+** POST, PUT, 和 DELETE 方法的接口, 参数可以在 query string中发送，也可以在 request body中发送(content type application/x-www-form-urlencoded)。允许混合这两种方式发送参数。
+** 对参数的顺序不做要求。
+** 但如果同一个参数名在query string和request body中都有，query string中的会被优先采用。
+
+## 接口鉴权类型
+
+** 每个接口都有自己的鉴权类型，鉴权类型决定了访问时应当进行何种鉴权
+** 如果需要 API-key，应当在HTTP头中以X-MBX-APIKEY字段传递
+** API-key 与 API-secret 是大小写敏感的
+** 可以在网页用户中心修改API-key 所具有的权限，例如读取账户信息、发送交易指令、发送提现指令
+
+鉴权类型 | 描述 
+------------ | ------------ 
+NONE | 不需要鉴权的接口
+TRADE | 需要有效的API-KEY和签名 
+USER_DATA | 需要有效的API-KEY和签名 
+USER_STREAM | 需要有效的API-KEY 
+MARKET_DATA | 需要有效的API-KEY 
+
+## 需要签名的接口
+
+** 调用这些接口时，除了接口本身所需的参数外，还需要传递signature即签名参数。
+** 签名使用HMAC SHA256算法. API-KEY所对应的API-Secret作为 HMAC SHA256 的密钥，其他所有参数作为HMAC SHA256的操作对象，得到的输出即为签名。
+** 签名大小写不敏感。
+** 当同时使用query string和request body时，HMAC SHA256的输入query string在前，request body在后
+
+## 时间同步安全
+
+** 签名接口均需要传递timestamp参数, 其值应当是请求发送时刻的unix时间戳(毫秒)
+** 服务器收到请求时会判断请求中的时间戳，如果是5000毫秒之前发出的，则请求会被认为无效。这个时间窗口值可以通过发送可选参数recvWindow来自定义。
+** 另外，如果服务器计算得出客户端时间戳在服务器时间的‘未来’一秒以上，也会拒绝请求。
+
+**关于交易时效性** 互联网状况并不100%可靠，不可完全依赖,因此你的程序本地到币安服务器的时延会有抖动. 这是我们设置recvWindow的目的所在，如果你从事高频交易，对交易时效性有较高的要求，可以灵活设置recvWindow以达到你的要求。
+>不推荐使用5秒以上的recvWindow
+
+
 # 行情接口
 
 ## 测试能否联通
@@ -135,7 +184,7 @@ NONE
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 underlying | STRING | YES | 现货币种对（期权合约标的） | BTCUSDT
 
@@ -160,7 +209,7 @@ underlying | STRING | YES | 现货币种对（期权合约标的） | BTCUSDT
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
@@ -201,7 +250,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
@@ -237,7 +286,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 limit | INT | NO | 默认值:100 最大值:1000.可选值:[5, 10, 20, 50, 100, 500, 1000] | 100
@@ -274,7 +323,7 @@ limit | INT | NO | 默认值:100 最大值:1000.可选值:[5, 10, 20, 50, 100, 5
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 interval | STRING | YES | 时间间隔 | 5m
@@ -315,7 +364,7 @@ limit | INT | NO | 记录条数 默认值:500 最大值:1500 | 500
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
@@ -347,7 +396,7 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 **参数:**
 
-Name | Type | Mandatory | Description | Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 fromId | LONG | NO | 从哪一条成交id开始返回. 缺省返回最近的成交记录 | 1592317127349
@@ -383,7 +432,7 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 recvWindow | LONG | NO |  | 
 timestamp | LONG | YES |  | 
@@ -411,7 +460,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 listenKey | STRING | YES | Listen Key | eBjOsjYmu1WD6oZHCRpMeWm4UzMvQelhOc9yTD4c
 recvWindow | LONG | NO |  | 
@@ -435,7 +484,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 recvWindow | STRING | YES | Listen Key | eBjOsjYmu1WD6oZHCRpMeWm4UzMvQelhOc9yTD4c
 recvWindow | LONG | NO |  | 
@@ -462,7 +511,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 recvWindow | LONG | NO |  | 
 timestamp | LONG | YES |  | 
@@ -497,7 +546,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 currency | STRING | YES | 资产类型 | USDT
 type | ENUM | YES | IN: 现货账户向合约账户划转 OUT: 合约账户向现货账户划转 | IN
@@ -524,7 +573,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 recvWindow | LONG | NO |  | 
@@ -565,7 +614,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 currency | STRING | YES | 资产类型 | USDT
 recordId | LONG | NO | 返回该recordId及之后的数据,缺省返回最近的数据 | 100000
@@ -616,7 +665,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 side | ENUM | YES | 买卖方向 SELL, BUY | BUY
@@ -632,7 +681,7 @@ timestamp | LONG | YES |  |
 
 根据 order type的不同，某些参数强制要求，具体如下:
 
-Type | 强制要求的参数
+类型 | 强制要求的参数
 ------------ | ------------ 
 LIMIT | timeInForce, quantity, price
 MARKET | quantity
@@ -673,7 +722,7 @@ MARKET | quantity
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 orderId | LONG | NO | 订单ID | 4611875134427365377
@@ -718,7 +767,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 recvWindow | LONG | NO |  | 
@@ -742,7 +791,7 @@ timestamp | LONG | YES |  |
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 orderId | LONG | NO | 订单ID | 4611875134427365377
@@ -787,7 +836,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 **参数:**
 
-Name | Type | Mandatory | Description |  Demo
+名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
 orderId | LONG | NO | 返回该orderId及之后的订单，缺省返回最近的订单 | 100000
@@ -806,6 +855,423 @@ timestamp | LONG | YES |  |
   "data": [
       {
         "id": "4611875134427365377",        // 系统订单号
+        "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+        "price": 100,                       // 委托价格
+        "quantity": 1,                      // 委托数量
+        "executedQty": 0,                   // 成交数量
+        "fee": 0,                           // 手续费
+        "side": "BUY",                      // 买卖方向
+        "type": "LIMIT",                    // 订单类型
+        "timeInForce": "GTC",               // 有效方法
+        "createDate": 1592465880683,        // 委托时间
+        "status": "ACCEPTED",               // 订单状态
+        "avgPrice": 0,                      // 成交均价
+        "source": "WEB",                    // 订单来源
+        "reduceOnly": false,                // 是否仅平仓单
+        "clientOrderId": ""                 // 客户端订单ID
+      }
+  ]
+}
+```
+
+## 期权查询历史委托 (TRADE)
+
+`GET /api/v1/historyOrders  (HMAC SHA256)`
+
+**权重:**
+1
+
+**参数:**
+
+名称 | 类型 | 是否必需 | 描述 |  示例
+------------ | ------------ | ------------ | ------------ | ------------ 
+symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+orderId | LONG | NO | 返回该orderId及之后的订单，缺省返回最近的订单 | 100000
+startTime | LONG | NO | 起始时间 | 1593511200000
+endTime | LONG | NO | 结束时间 | 1593512200000
+limit | INT | NO | 返回的结果集数量 默认值:100 最大值:1000 | 100
+recvWindow | LONG | NO |  | 
+timestamp | LONG | YES |  | 
+
+>**响应:**
+
+```javascript
+{
+  "code": 0,
+  "msg": "success",
+  "data": [
+      {
+        "id": "4611875134427365377",        // 系统订单号
+        "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+        "price": 100,                       // 委托价格
+        "quantity": 1,                      // 委托数量
+        "executedQty": 0,                   // 成交数量
+        "fee": 0,                           // 手续费
+        "side": "BUY",                      // 买卖方向
+        "type": "LIMIT",                    // 订单类型
+        "timeInForce": "GTC",               // 有效方法
+        "createDate": 1592465880683,        // 委托时间
+        "status": "CANCELLED",              // 订单状态
+        "avgPrice": 0,                      // 成交均价
+        "source": "WEB",                    // 订单来源
+        "reduceOnly": false,                // 是否仅平仓单
+        "clientOrderId": ""                 // 客户端订单ID
+      }
+  ]
+}
+```
+
+
+
+## Websocket账户信息推送
+
+ 本篇所列出API接口的base url : https://api.binance.com 
+
+ 用于订阅账户数据的 listenKey 从创建时刻起有效期为60分钟
+ 
+ 可以通过 PUT 一个 listenKey 延长60分钟有效期
+ 
+ 可以通过DELETE一个 listenKey 立即关闭当前数据流，并使该listenKey 无效
+ 
+ 在具有有效listenKey的帐户上执行POST将返回当前有效的listenKey并将其有效期延长60分钟
+ 
+ websocket接口的baseurl: wss://stream.binance.com:9443
+ 
+ U订阅账户数据流的stream名称为 /ws/<listenKey> 或 /stream?streams=<listenKey>
+ 
+ 每个链接有效期不超过24小时，请妥善处理断线重连。
+ 
+ 账户数据流的消息不保证严格时间序; 请使用 E 字段进行排序
+ 
+ 数据默认是GZIP压缩数据 连接成功后发送 `{"method":"BINARY", "params":["false"], "id":1}` 转换为文本数据
+
+### 生成 Listen Key (USER_STREAM)
+开始一个新的数据流。除非发送 keepalive，否则数据流于60分钟后关闭。如果该帐户具有有效的listenKey，则将返回该listenKey并将其有效期延长60分钟。
+
+`GET /v1/private/user/userDataStream`
+
+**权重:**
+1
+
+**参数:**
+NONE
+
+>**响应:**
+
+```javascript
+{
+  "listenKey":"pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s61cv6a81va65sdf19v8a65a1"
+}
+```
+### 延长 Listen Key 有效期 (USER_STREAM)
+有效期延长至本次调用后60分钟,建议每30分钟发送一个 put 请求。 
+
+`PUT /v1/private/user/userDataStream`
+
+**权重:**
+1
+
+**参数:**
+
+名称 | 类型 | 是否必需 | 描述 |  示例
+------------ | ------------ | ------------ | ------------ | ------------ 
+listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s61cv6a81va65sdf19v8a65a1"
+
+>**响应:**
+
+```javascript
+{
+  "listenKey":"pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s61cv6a81va65sdf19v8a65a1"
+}
+```
+### 删除 Listen Key (USER_STREAM)
+开始一个新的数据流。除非发送 keepalive，否则数据流于60分钟后关闭。如果该帐户具有有效的listenKey，则将返回该listenKey并将其有效期延长60分钟。
+
+`DELETE /v1/private/user/userDataStream`
+
+**权重:**
+1
+
+**参数:**
+
+名称 | 类型 | 是否必需 | 描述 |  示例
+------------ | ------------ | ------------ | ------------ | ------------ 
+listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s61cv6a81va65sdf19v8a65a1"
+
+
+>**响应:**
+
+```javascript
+{}
+```
+### Payload: 账户数据
+当下列情形发生时更新:
+账户发生充值或提取
+
+交易账户之间发生划转(例如 现货向杠杆账户划转)
+
+持仓变化
+
+>**响应:**
+
+```javascript
+{
+    "e":"ACCOUNT_UPDATE",                   // 事件类型
+    "E":1591696384141,                      // 事件时间
+    "B":[
+        {
+          
+            "b":"100007992.26053177",       // 账户余额
+            "m":"0",                        // 持仓价值
+            "u":"458.782655111111",         // 未实现盈亏
+            "U":"458.782655111111",         // 未实现盈亏 (卖方)
+            "o":"-13238.246342",            // 委托保证金额
+            "p":"-18852.328456",            // 持仓保证金额
+            "r":"-15452.328456",            // 减仓保证金额
+            "M":"-15452.328456"             // 维持保证金额
+        }
+    ],
+    //持仓信息变化 如果有变化包含P属性 没有变化则不包含
+    "P":[
+          {
+           "S":symbol,                      // 合约类型
+           "c":1,                           // 当前持仓量
+           "r":1,                           // 可平仓量
+           "p":1,                           // 持仓价值
+           "a":1                            // 持仓均价
+          }
+        ]
+}
+```
+### Payload: 订单数据
+当下列情形发生时更新:
+订单变化 下单 撤单 成交
+
+
+
+>**响应:**
+
+```javascript
+ "e":"ORDER_TRADE_UPDATE",                  // 事件类型
+    "E":1591698525864,                      // 事件时间
+    "o":[
+        {
+            "T":0,                          // 交易时间 
+            "oid":1,                        // 订单Id
+            "S":symbol,                     // 合约名称
+            "cid":"zdy",                    // 用户自定义信息
+            "q":"0.111",                    // 交易量
+            "stp":0,                        // selfTradePrevention
+            "r":false,                      // 减仓
+            "c":false,                      // 暂未使用
+            "s":0,                          // 状态
+            "e":"1",                        // 成交量
+            "ec":"1",                       // 成交金额
+            "f":"0.011"                     // 手续费
+        }
+    ]
+}
+```
+### 公共数据 Payload: 24小时TICKER
+#### 订阅一个信息流
+请求
+```javascript
+{
+"method": "SUBSCRIBE",
+"params":
+[
+"BTCUSDT-200630-9000-P@ticker"
+],
+"id": 1
+}
+```
+24ticker
+>**响应:**
+
+```javascript
+{
+    "e":"ticker",                           // 事件类型
+    "E":1591677962357,                      // 事件事件
+    "s":"BTCUSDT-200630-9000-P",            // 币种
+    "o":"1000",                             // 24小时开盘价
+    "h":"1000",                             // 最高价
+    "l":"1000",                             // 最低价
+    "c":"1000",                             // 最新价
+    "V":"2",                                // 交易量
+    "A":"0",                                // 交易金额
+    "p":"0",                                // 涨跌幅
+    "Q":"2000",                             // 最后成交量
+    "F":1,                                  // 第一笔交易id
+    "L":1,                                  // 最后一笔交易Id
+    "n":1,                                  // 交易笔数
+    "b":"0",                                // 买隐含波动率
+    "a":"0",                                // 卖隐含波动率
+    "d":"0",                                // delta
+    "t":"0",                                // theta
+    "g":"0",                                // gamma
+    "v":"0"                                 // vega
+}
+```
+### 公共数据 Payload: 最近成交
+
+请求
+```javascript
+{
+"method": "SUBSCRIBE",
+"params":
+[
+"BTCUSDT-200630-9000-P@trade"
+],
+"id": 1
+}
+```
+
+>**响应:**
+
+```javascript
+{
+    "e":"trade",                        // 事件类型
+    "E":1591677941092,                  // 事件时间
+    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "t":[                               // 历史交易
+        {
+            "t":1,                      // 交易Id
+            "p":"1000",                 // 交易价格
+            "q":"-2",                   // 交易量
+            "b":4611781675939004417,    // 卖单Id
+            "a":4611781675939004418,    // 卖单Id
+            "T":1591677567872,          // 成交时间
+            "s":"-1"                    // 方向
+        }
+    ]
+}
+```
+
+### 公共数据 Payload: k线
+
+请求
+```javascript
+{
+"method": "SUBSCRIBE",
+"params":
+[
+"BTCUSDT-200630-9000-P@kline_1m"
+],
+"id": 1
+}
+```
+```
+周期
+```html
+"1m", 
+"3m", 
+"5m", 
+"15m"
+"30m"
+"1h",
+"2h",
+"4h",
+"6", 
+"12h
+"1d", 
+"3d", 
+"1w",
+```
+>**响应:**
+
+```javascript
+{
+    "e":"kline",                        // 事件类型
+    "E":1591677941085,                  // 事件事件
+    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "k":[{                              // 倒数第二条
+        "t":1591677900000,              // k线事件
+        "i":"1m",                       // k线周期
+        "F":0,                          // 第一个交易id
+        "L":0,                          // 最后一个交易id
+        "o":"1000",                     // 开
+        "h":"1000",                     // 高
+        "l":"1000",                     // 低
+        "c":"1000",                     // 收
+        "v":"0",                        // 量
+        "n":0,                          // 交易笔数
+        "q":"0",                        // 成交金额
+        "x":false,                      // 当前k线是否完成
+        "V":"0",                        // taker成交量
+        "Q":"0"                         // taker成交金额
+    },{                                 // 最新k线数据
+        "t":1591677900000,              // k线事件
+        "i":"1m",                       // k线周期
+        "F":0,                          // 第一个交易id
+        "L":0,                          // 最后一个交易id
+        "o":"1000",                     // 开
+        "h":"1000",                     // 高
+        "l":"1000",                     // 低
+        "c":"1000",                     // 收
+        "v":"0",                        // 量
+        "n":0,                          // 交易笔数
+        "q":"0",                        // 成交金额
+        "x":false,                      // 当前k线是否完成
+        "V":"0",                        // taker成交量
+        "Q":"0"                         // taker成交金额
+    }
+  ]
+}
+```
+### 公共数据 Payload: 深度
+请求
+```javascript
+{
+"method": "SUBSCRIBE",
+"params":
+[
+"BTCUSDT-200630-9000-P@depth5"
+],
+"id": 1
+}
+
+```
+周期
+```html
+"5", 
+"10", 
+"20", 
+"50",
+"100"
+"1000"
+```
+>**响应:**
+
+```javascript
+{
+    "e":"depth",                        // 事件类型
+    "E":1591695934033,                  // 事件时间
+    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "b":[                               // 买单
+        [
+            "200",                      // 价格
+            "3"                         // 量
+        ],
+        [
+            "101",
+            "1"
+        ],
+        [
+            "100",
+            "2"
+        ]
+    ],
+    "a":[                               // 卖单
+        [
+            "1000",
+            "89"
+        ]
+    ]
+}
+```
+
+
+系统订单号
         "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
         "price": 100,                       // 委托价格
         "quantity": 1,                      // 委托数量
