@@ -2,7 +2,7 @@
 
 ## Rest 基本信息
 
-* 本篇列出REST接口的baseurl **https://testnet.binanceops.com**
+* 本篇列出REST接口的baseurl **https://api.binance.com**
 * 所有接口的响应都是JSON格式
 * 响应中如有数组，数组元素以时间升序排列，越早的数据越提前。
 * 所有时间、时间戳均为UNIX时间，单位为毫秒
@@ -50,7 +50,7 @@ MARKET_DATA | 需要有效的API-KEY
 
 ## 测试能否联通
 
-`GET /api/v1/ping`
+`GET /opsapi/v1/ping`
 
 **权重:**
 1
@@ -69,7 +69,7 @@ NONE
 
 ## 获取服务器时间
 
-`GET /api/v1/time`
+`GET /opsapi/v1/time`
 
 **权重:**
 1
@@ -89,7 +89,7 @@ NONE
 
 ## 获取此时的交易对信息
 
-`GET /api/v1/optionInfo`
+`GET /opsapi/v1/optionInfo`
 
 **权重:**
 1
@@ -123,7 +123,7 @@ NONE
 
 ## 获取此时的限制信息和交易对信息
 
-`GET /api/v1/exchangeInfo`
+`GET /opsapi/v1/exchangeInfo`
 
 **权重:**
 1
@@ -176,7 +176,7 @@ NONE
 
 ## 现货指数价格获取
 
-`GET /api/v1/index`
+`GET /opsapi/v1/index`
 
 **权重:**
 1
@@ -201,7 +201,7 @@ underlying | STRING | YES | 现货币种对（期权合约标的） | BTCUSDT
 
 ## 获取最新价格
 
-`GET /api/v1/ticker`
+`GET /opsapi/v1/ticker`
 
 **权重:**
 1
@@ -242,7 +242,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 ## 获取最新标记价格
 
-`GET /api/v1/mark`
+`GET /opsapi/v1/mark`
 
 **权重:**
 1
@@ -278,7 +278,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 ## 深度信息
 
-`GET /api/v1/depth`
+`GET /opsapi/v1/depth`
 
 **权重:**
 5
@@ -315,7 +315,7 @@ limit | INT | NO | 默认值:100 最大值:1000.可选值:[5, 10, 20, 50, 100, 5
 
 ## K线数据
 
-`GET /api/v1/klines`
+`GET /opsapi/v1/klines`
 
 **权重:**
 5
@@ -356,7 +356,7 @@ limit | INT | NO | 记录条数 默认值:500 最大值:1500 | 500
 
 ## 期权近期成交
 
-`GET /api/v1/trades`
+`GET /opsapi/v1/trades`
 
 **权重:**
 5
@@ -388,7 +388,7 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 ## 查询历史成交
 
-`GET /api/v1/historicalTrades`
+`GET /opsapi/v1/historicalTrades`
 
 **权重:**
 5
@@ -424,7 +424,7 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 ## 生成 Listen Key (USER_STREAM)
 
-`POST /api/v1/userDataStream  (HMAC SHA256)`
+`POST /opsapi/v1/userDataStream  (HMAC SHA256)`
 
 **权重:**
 1
@@ -450,7 +450,7 @@ timestamp | LONG | YES |  |
 
 ## 延长 Listen Key 有效期 (USER_STREAM)
 
-`PUT /api/v1/userDataStream`
+`PUT /opsapi/v1/userDataStream`
 
 有效期延长至本次调用后60分钟
 
@@ -476,7 +476,7 @@ timestamp | LONG | YES |  |
 
 ## 关闭 Listen Key (USER_STREAM)
 
-`DELETE /api/v1/userDataStream  (HMAC SHA256)`
+`DELETE /opsapi/v1/userDataStream  (HMAC SHA256)`
 
 **权重:**
 1
@@ -503,7 +503,7 @@ timestamp | LONG | YES |  |
 
 ## 账户资产信息(USER_DATA)
 
-`GET /api/v1/account  (HMAC SHA256)`
+`GET /opsapi/v1/account  (HMAC SHA256)`
 
 **权重:**
 1
@@ -538,7 +538,7 @@ timestamp | LONG | YES |  |
 
 ## 资金划转(USER_DATA)
 
-`POST /api/v1/transfer  (HMAC SHA256)`
+`POST /opsapi/v1/transfer  (HMAC SHA256)`
 
 **权重:**
 1
@@ -565,7 +565,7 @@ timestamp | LONG | YES |  |
 
 ## 期权持仓信息(USER_DATA)
 
-`GET /api/v1/position  (HMAC SHA256)`
+`GET /opsapi/v1/position  (HMAC SHA256)`
 
 **权重:**
 1
@@ -606,7 +606,7 @@ timestamp | LONG | YES |  |
 
 ## 账户资金流水(USER_DATA)
 
-`POST /api/v1/bill  (HMAC SHA256)`
+`POST /opsapi/v1/bill  (HMAC SHA256)`
 
 **权重:**
 1
@@ -657,7 +657,7 @@ timestamp | LONG | YES |  |
 
 ## 期权下单 (TRADE)
 
-`POST /api/v1/order  (HMAC SHA256)`
+`POST /opsapi/v1/order  (HMAC SHA256)`
 
 **权重:**
 1
@@ -714,7 +714,7 @@ MARKET | quantity
 
 ## 期权撤销订单 (TRADE)
 
-`DELETE /api/v1/order  (HMAC SHA256)`
+`DELETE /opsapi/v1/order  (HMAC SHA256)`
 
 **权重:**
 1
@@ -759,7 +759,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 ## 期权撤销全部订单 (TRADE)
 
-`DELETE /api/v1/allOpenOrders (HMAC SHA256)`
+`DELETE /opsapi/v1/allOpenOrders (HMAC SHA256)`
 
 **权重:**
 1
@@ -783,7 +783,7 @@ timestamp | LONG | YES |  |
 
 ## 期权查询订单 (TRADE)
 
-`GET /api/v1/order (HMAC SHA256)`
+`GET /opsapi/v1/order (HMAC SHA256)`
 
 **权重:**
 1
@@ -828,7 +828,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 ## 期权查询当前挂单 (TRADE)
 
-`GET /api/v1/openOrders  (HMAC SHA256)`
+`GET /opsapi/v1/openOrders  (HMAC SHA256)`
 
 **权重:**
 1
@@ -875,7 +875,7 @@ timestamp | LONG | YES |  |
 
 ## 期权查询历史委托 (TRADE)
 
-`GET /api/v1/historyOrders  (HMAC SHA256)`
+`GET /opsapi/v1/historyOrders  (HMAC SHA256)`
 
 **权重:**
 1
@@ -924,7 +924,7 @@ timestamp | LONG | YES |  |
 
 ## Websocket账户信息推送
 
- 本篇所列出API接口的base url : https://api.binance.com 
+ 本篇所列出API接口的base url: **https://api.binance.com**  
 
  用于订阅账户数据的 listenKey 从创建时刻起有效期为60分钟
  
@@ -934,7 +934,7 @@ timestamp | LONG | YES |  |
  
  在具有有效listenKey的帐户上执行POST将返回当前有效的listenKey并将其有效期延长60分钟
  
- websocket接口的baseurl: wss://stream.binance.com:9443
+ websocket接口的baseurl: **wss://opsstream.binance.com**
  
  U订阅账户数据流的stream名称为 /ws/<listenKey> 或 /stream?streams=<listenKey>
  
@@ -947,7 +947,7 @@ timestamp | LONG | YES |  |
 ### 生成 Listen Key (USER_STREAM)
 开始一个新的数据流。除非发送 keepalive，否则数据流于60分钟后关闭。如果该帐户具有有效的listenKey，则将返回该listenKey并将其有效期延长60分钟。
 
-`GET /v1/private/user/userDataStream`
+`GET /opsapi/v1/userDataStream`
 
 **权重:**
 1
@@ -965,7 +965,7 @@ NONE
 ### 延长 Listen Key 有效期 (USER_STREAM)
 有效期延长至本次调用后60分钟,建议每30分钟发送一个 put 请求。 
 
-`PUT /v1/private/user/userDataStream`
+`PUT /opsapi/v1/userDataStream`
 
 **权重:**
 1
@@ -986,7 +986,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 ### 删除 Listen Key (USER_STREAM)
 开始一个新的数据流。除非发送 keepalive，否则数据流于60分钟后关闭。如果该帐户具有有效的listenKey，则将返回该listenKey并将其有效期延长60分钟。
 
-`DELETE /v1/private/user/userDataStream`
+`DELETE /opsapi/v1/userDataStream`
 
 **权重:**
 1
