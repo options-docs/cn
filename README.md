@@ -48,25 +48,6 @@ MARKET_DATA | 需要有效的API-KEY
 
 # 行情接口
 
-## 测试能否联通
-
-`GET /vapi/v1/ping`
-
-**权重:**
-1
-
-**参数:**
-NONE
-
->**响应:**
-
-```javascript
-{
-  "code": 0,
-  "msg": "success"
-}
-```
-
 ## 获取服务器时间
 
 `GET /vapi/v1/time`
