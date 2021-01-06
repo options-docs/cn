@@ -1213,7 +1213,6 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 ```
 周期
 ```html
-"5", 
 "10", 
 "20", 
 "50",
