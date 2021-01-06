@@ -1248,5 +1248,11 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     ]
 }
 ```
+Websocket错误信息
+
+错误码 | 描述 
+------------ | ------------ 
+{"error":{"code":-1125,"msg":"Invalid ListenKey "}} | Listen Key 无效
+{"error":{"code":-1130,"msg":"UNKNOWN_PARAM "}} | 参数错误
 
 
