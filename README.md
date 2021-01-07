@@ -48,6 +48,25 @@ MARKET_DATA | 需要有效的API-KEY
 
 # 行情接口
 
+## 测试能否联通
+
+`GET /vapi/v1/ping`
+
+**权重:**
+1
+
+**参数:**
+NONE
+
+>**响应:**
+
+```javascript
+{
+  "code": 0,
+  "msg": "success"
+}
+```
+
 ## 获取服务器时间
 
 `GET /vapi/v1/time`
@@ -1052,7 +1071,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     ]
 }
 ```
-### 公共数据 Payload: 24小时TICKER
+### 行情数据 Payload: 24小时TICKER
 #### 订阅一个信息流
 请求
 ```javascript
@@ -1092,7 +1111,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     "v":"0"                                 // vega
 }
 ```
-### 公共数据 Payload: 最近成交
+### 行情数据 Payload: 最近成交
 
 请求
 ```javascript
@@ -1127,7 +1146,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 }
 ```
 
-### 公共数据 Payload: k线
+### 行情数据 Payload: k线
 
 请求
 ```javascript
@@ -1198,7 +1217,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
   ]
 }
 ```
-### 公共数据 Payload: 深度
+### 行情数据 Payload: 深度
 请求
 ```javascript
 {
@@ -1211,7 +1230,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 }
 
 ```
-周期
+返回深度条数
 ```html
 "10", 
 "20", 
@@ -1219,6 +1238,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "100"
 "1000"
 ```
+1000 增量数据
 >**响应:**
 
 ```javascript
@@ -1248,6 +1268,13 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     ]
 }
 ```
+## 如何正确在本地维护一个深度副本
+1. 发送订阅深度请求。第一次返回全部深度，需本地缓存起来。
+2. 开始缓存收到的更新。同一个价位，后收到的更新覆盖前面的。
+3. 如果某个价格对应的挂单量为0，表示该价位的挂单已经撤单或者被吃，应该移除这个价位。
+4. 如果收到某个价位本地缓存中不存在，则新增本地缓存。
+5. 如果连接断开请重新连接,然后重复1-4步骤。
+
 Websocket错误信息
 
 错误码 | 描述 
