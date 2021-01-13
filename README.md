@@ -1105,6 +1105,8 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     "n":1,                                  // 交易笔数
     "b":"0",                                // 买隐含波动率
     "a":"0",                                // 卖隐含波动率
+    "bo":"0",                               // 买一价格
+    "ao":"0",                               // 卖一价格   
     "d":"0",                                // delta
     "t":"0",                                // theta
     "g":"0",                                // gamma
