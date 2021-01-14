@@ -109,7 +109,7 @@ NONE
       "contractId": 1,
       "underlying": "BTCUSDT",          // 合约标的
       "quoteAsset": "USDT",             // 计价资产
-      "symbol": "BTCUSDT-200730-9000-C",// 交易对名称
+      "symbol": "BTC-200730-9000-C",// 交易对名称
       "unit": 1,                        // 兑换比例，一张合约代表的标的数量
       "minQty": 1,                      // 合约标的最少交易量
       "side": "CALL",                   // 方向: CALL 多, PUT 空
@@ -161,7 +161,7 @@ NONE
         "contractId": 1,
         "underlying": "BTCUSDT",          // 合约标的
         "quoteAsset": "USDT",             // 计价资产
-        "symbol": "BTCUSDT-200730-9000-C",// 交易对名称
+        "symbol": "BTC-200730-9000-C",// 交易对名称
         "unit": 1,                        // 兑换比例，一张合约代表的标的数量
         "minQty": 1,                      // 合约标的最少交易量
         "side": "CALL",                   // 方向: CALL 多, PUT 空
@@ -210,7 +210,7 @@ underlying | STRING | YES | 现货币种对（期权合约标的） | BTCUSDT
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | NO | 期权交易对 | BTC-200730-9000-C
 
 >**响应:**
 
@@ -220,7 +220,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
   "msg": "success",
   "data": [
     {
-      "symbol": "BTCUSDT-200730-9000-C",
+      "symbol": "BTC-200730-9000-C",
       "priceChange": "-16.2038",        //24小时价格变动
       "priceChangePercent": "-0.0162",  //24小时价格变动百分比
       "lastPrice": "1000",              //最近一次成交价
@@ -251,7 +251,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | NO | 期权交易对 | BTC-200730-9000-C
 
 >**响应:**
 
@@ -261,7 +261,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
   "msg": "success",
   "data": [
     {
-      "symbol": "BTCUSDT-200730-9000-C",
+      "symbol": "BTC-200730-9000-C",
       "markPrice": 1343.2883,       //标记价格
       "bidIV": "1.40000077",        //隐含波动率 买
       "askIV": "1.50000153",        //隐含波动率 卖
@@ -287,7 +287,7 @@ symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 limit | INT | NO | 默认值:100 最大值:1000.可选值:[10, 20, 50, 100, 500, 1000] | 100
 
 >**响应:**
@@ -324,7 +324,7 @@ limit | INT | NO | 默认值:100 最大值:1000.可选值:[10, 20, 50, 100, 500,
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 interval | STRING | YES | 时间间隔 | 5m
 startTime | LONG | NO | 起始时间 | 1592317127349
 endTime | LONG | NO | 结束时间 | 1592318127349
@@ -365,7 +365,7 @@ limit | INT | NO | 记录条数 默认值:500 最大值:1500 | 500
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 >**响应:**
@@ -397,7 +397,7 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 fromId | LONG | NO | 从哪一条成交id开始返回. 缺省返回最近的成交记录 | 1592317127349
 limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
@@ -574,7 +574,7 @@ timestamp | LONG | YES |  |
 
 名称 | 类型 | 是否必需 | 描述 | 示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | NO | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | NO | 期权交易对 | BTC-200730-9000-C
 recvWindow | LONG | NO |  | 
 timestamp | LONG | YES |  | 
 
@@ -587,7 +587,7 @@ timestamp | LONG | YES |  |
   "data": [
     {
       "entryPrice": 1000,               // 开仓均价
-      "symbol": "BTCUSDT-200730-9000-C",// 期权交易对
+      "symbol": "BTC-200730-9000-C",// 期权交易对
       "side": "SHORT",                  // 持仓方向
       "leverage": 0,                    // 杠杆
       "quantity": -0.1,                 // 持仓数量（正数为多，负数为空）
@@ -666,7 +666,7 @@ timestamp | LONG | YES |  |
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 side | ENUM | YES | 买卖方向 SELL, BUY | BUY
 type | ENUM | YES | 订单类型 LIMIT, MARKET | LIMIT
 quantity | DECIMAL | YES | 下单数量 | 3
@@ -694,7 +694,7 @@ MARKET | quantity
   "msg": "success",
   "data": {
     "id": "4611875134427365377",        // 系统订单号
-    "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+    "symbol": "BTC-200730-9000-C",      // 期权交易对
     "price": 100,                       // 委托价格
     "quantity": 1,                      // 委托数量
     "executedQty": 0,                   // 成交数量
@@ -723,7 +723,7 @@ MARKET | quantity
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 orderId | LONG | NO | 订单ID | 4611875134427365377
 clientOrderId | STRING | NO | 用户自定义的订单号 | 10000
 recvWindow | LONG | NO |  | 
@@ -739,7 +739,7 @@ orderId 与 clientOrderId 必须至少发送一个
   "msg": "success",
   "data": {
     "id": "4611875134427365377",        // 系统订单号
-    "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+    "symbol": "BTC-200730-9000-C",  // 期权交易对
     "price": 100,                       // 委托价格
     "quantity": 1,                      // 委托数量
     "executedQty": 0,                   // 成交数量
@@ -768,7 +768,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 recvWindow | LONG | NO |  | 
 timestamp | LONG | YES |  | 
 
@@ -792,7 +792,7 @@ timestamp | LONG | YES |  |
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 orderId | LONG | NO | 订单ID | 4611875134427365377
 clientOrderId | STRING | NO | 用户自定义的订单号 | 10000
 recvWindow | LONG | NO |  | 
@@ -808,7 +808,7 @@ orderId 与 clientOrderId 必须至少发送一个
   "msg": "success",
   "data": {
     "id": "4611875134427365377",        // 系统订单号
-    "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+    "symbol": "BTC-200730-9000-C",  // 期权交易对
     "price": 100,                       // 委托价格
     "quantity": 1,                      // 委托数量
     "executedQty": 0,                   // 成交数量
@@ -837,7 +837,7 @@ orderId 与 clientOrderId 必须至少发送一个
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 orderId | LONG | NO | 返回该orderId及之后的订单，缺省返回最近的订单 | 100000
 startTime | LONG | NO | 起始时间 | 1593511200000
 endTime | LONG | NO | 结束时间 | 1593512200000
@@ -854,7 +854,7 @@ timestamp | LONG | YES |  |
   "data": [
       {
         "id": "4611875134427365377",        // 系统订单号
-        "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+        "symbol": "BTC-200730-9000-C",  // 期权交易对
         "price": 100,                       // 委托价格
         "quantity": 1,                      // 委托数量
         "executedQty": 0,                   // 成交数量
@@ -884,7 +884,7 @@ timestamp | LONG | YES |  |
 
 名称 | 类型 | 是否必需 | 描述 |  示例
 ------------ | ------------ | ------------ | ------------ | ------------ 
-symbol | STRING | YES | 期权交易对 | BTCUSDT-200730-9000-C
+symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 orderId | LONG | NO | 返回该orderId及之后的订单，缺省返回最近的订单 | 100000
 startTime | LONG | NO | 起始时间 | 1593511200000
 endTime | LONG | NO | 结束时间 | 1593512200000
@@ -901,7 +901,7 @@ timestamp | LONG | YES |  |
   "data": [
       {
         "id": "4611875134427365377",        // 系统订单号
-        "symbol": "BTCUSDT-200730-9000-C",  // 期权交易对
+        "symbol": "BTC-200730-9000-C",  // 期权交易对
         "price": 100,                       // 委托价格
         "quantity": 1,                      // 委托数量
         "executedQty": 0,                   // 成交数量
@@ -1079,7 +1079,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "method": "SUBSCRIBE",
 "params":
 [
-"BTCUSDT-200630-9000-P@ticker"
+"BTC-200630-9000-P@ticker"
 ],
 "id": 1
 }
@@ -1091,7 +1091,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 {
     "e":"ticker",                           // 事件类型
     "E":1591677962357,                      // 事件事件
-    "s":"BTCUSDT-200630-9000-P",            // 币种
+    "s":"BTC-200630-9000-P",            // 币种
     "o":"1000",                             // 24小时开盘价
     "h":"1000",                             // 最高价
     "l":"1000",                             // 最低价
@@ -1121,7 +1121,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "method": "SUBSCRIBE",
 "params":
 [
-"BTCUSDT-200630-9000-P@trade"
+"BTC-200630-9000-P@trade"
 ],
 "id": 1
 }
@@ -1133,7 +1133,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 {
     "e":"trade",                        // 事件类型
     "E":1591677941092,                  // 事件时间
-    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "s":"BTC-200630-9000-P",        // 币种
     "t":[                               // 历史交易
         {   "t":1,                      // 交易ID
             "p":"1000",                 // 交易价格
@@ -1155,7 +1155,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "method": "SUBSCRIBE",
 "params":
 [
-"BTCUSDT-200630-9000-P@kline_1m"
+"BTC-200630-9000-P@kline_1m"
 ],
 "id": 1
 }
@@ -1183,7 +1183,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 {
     "e":"kline",                        // 事件类型
     "E":1591677941085,                  // 事件事件
-    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "s":"BTC-200630-9000-P",        // 币种
     "k":[{                              // 倒数第二条
         "t":1591677900000,              // k线事件
         "i":"1m",                       // k线周期
@@ -1225,7 +1225,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "method": "SUBSCRIBE",
 "params":
 [
-"BTCUSDT-200630-9000-P@depth10"
+"BTC-200630-9000-P@depth10"
 ],
 "id": 1
 }
@@ -1246,7 +1246,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 {
     "e":"depth",                        // 事件类型
     "E":1591695934033,                  // 事件时间
-    "s":"BTCUSDT-200630-9000-P",        // 币种
+    "s":"BTC-200630-9000-P",        // 币种
     "b":[                               // 买单
         [
             "200",                      // 价格
