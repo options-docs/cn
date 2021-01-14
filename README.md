@@ -1126,7 +1126,10 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 "id": 1
 }
 ```
-
+注:
+```html
+* 全量数据更新，更新最近100条数据。
+```
 >**响应:**
 
 ```javascript
@@ -1159,7 +1162,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
 ```
 注:
 ```html
-* 增量数据更新 成功更新最新成交数据，当交易记录超过100。只更新最近100最新数据。
+* 增量数据更新 更新最新成交数据，当一次更新超过100交易记录,只返回最近100交易记录最新数据。
 ```
 >**响应:**
 
