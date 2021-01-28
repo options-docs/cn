@@ -64,7 +64,124 @@ MARKET_DATA | 需要有效的API-KEY
 * 另外，如果服务器计算得出客户端时间戳在服务器时间的‘未来’一秒以上，也会拒绝请求。
 
 **关于交易时效性** 互联网状况并不100%可靠，不可完全依赖,因此你的程序本地到币安服务器的时延会有抖动. 这是我们设置recvWindow的目的所在，如果你从事高频交易，对交易时效性有较高的要求，可以灵活设置recvWindow以达到你的要求。
->不推荐使用5秒以上的recvWindow
+
+<aside class="notice">不推荐使用5秒以上的recvWindow</aside>
+
+
+### POST /vapi/v1/order 的示例
+以下是在linux bash环境下使用 echo openssl 和curl工具实现的一个调用接口下单的示例 apikey、secret仅供示范
+
+Key | Value
+------------ | ------------
+apiKey | 22BjeOROKiXJ3NxbR3zjh3uoGcaflPu3VMyBXAg8Jj2J1xVSnY0eB4dzacdE9IWn
+secretKey | YtP1BudNOWZE1ag5uzCkh4hIC7qSmQOu797r5EJBFGhxBYivjj8HIX0iiiPof5yG
+
+
+参数 | 取值
+------------ | ------------
+symbol | BTC-210129-40000-C
+side | BUY
+type | LIMIT
+timeInForce | GTC
+quantity | 0.01
+price | 2000
+recvWindow | 5000
+timestamp | 1611825601400
+
+
+#### 示例 1: 所有参数通过 request body 发送
+
+> **Example 1**
+
+> **HMAC SHA256 signature:**
+
+```shell
+    $ echo -n "symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC&quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400" | openssl dgst -sha256 -hmac "YtP1BudNOWZE1ag5uzCkh4hIC7qSmQOu797r5EJBFGhxBYivjj8HIX0iiiPof5yG"
+    (stdin)= 7c12045972f6140e765e0f2b67d28099718df805732676494238f50be830a7d7
+```
+
+
+> **curl command:**
+
+```shell
+    (HMAC SHA256)
+    $ curl -H "X-MBX-APIKEY: 22BjeOROKiXJ3NxbR3zjh3uoGcaflPu3VMyBXAg8Jj2J1xVSnY0eB4dzacdE9IWn" -X POST 'https://vapi.binance.com/vapi/v1/order' -d 'symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC&quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400&signature=7c12045972f6140e765e0f2b67d28099718df805732676494238f50be830a7d7'
+    
+```
+
+* **requestBody:** 
+
+symbol=BTC-210129-40000-C   
+&side=BUY   
+&type=LIMIT   
+&timeInForce=GTC   
+&quantity=0.01  
+&price=2000  
+&recvWindow=5000   
+&timestamp=1611825601400
+
+
+#### 示例 2: 所有参数通过 query string 发送
+
+> **Example 2**
+
+> **HMAC SHA256 signature:**
+
+```shell
+    $ echo -n "symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC&quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400" | openssl dgst -sha256 -hmac "YtP1BudNOWZE1ag5uzCkh4hIC7qSmQOu797r5EJBFGhxBYivjj8HIX0iiiPof5yG"
+    (stdin)= 7c12045972f6140e765e0f2b67d28099718df805732676494238f50be830a7d7
+    
+```
+> **curl command:**
+
+```shell
+    (HMAC SHA256)
+   $ curl -H "X-MBX-APIKEY: 22BjeOROKiXJ3NxbR3zjh3uoGcaflPu3VMyBXAg8Jj2J1xVSnY0eB4dzacdE9IWn" -X POST 'https://vapi.binance.com/vapi/v1/order?symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC&quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400&signature=7c12045972f6140e765e0f2b67d28099718df805732676494238f50be830a7d7'
+    
+```
+* **queryString:**  
+
+symbol=BTC-210129-40000-C   
+&side=BUY   
+&type=LIMIT   
+&timeInForce=GTC   
+&quantity=0.01  
+&price=2000  
+&recvWindow=5000   
+&timestamp=1611825601400
+
+
+#### 示例 3: 混合使用 query string 和 request body
+
+> **Example 3**
+
+> **HMAC SHA256 signature:**
+
+```shell
+   $ echo -n "symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTCquantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400" | openssl dgst -sha256 -hmac "YtP1BudNOWZE1ag5uzCkh4hIC7qSmQOu797r5EJBFGhxBYivjj8HIX0iiiPof5yG"
+    (stdin)= fa6045c54fb02912b766442be1f66fab619217e551a4fb4f8a1ee000df914d8e
+    
+```
+
+> **curl command:**
+
+```shell
+    (HMAC SHA256)
+    $ curl -H "X-MBX-APIKEY: 22BjeOROKiXJ3NxbR3zjh3uoGcaflPu3VMyBXAg8Jj2J1xVSnY0eB4dzacdE9IWn" -X POST 'https://vapi.binance.com/vapi/v1/order?symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC' -d 'quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400&signature=fa6045c54fb02912b766442be1f66fab619217e551a4fb4f8a1ee000df914d8e'
+```
+
+* **queryString:** 
+
+symbol=BTC-210129-40000-C&side=BUY&type=LIMIT&timeInForce=GTC
+
+* **requestBody:** 
+
+quantity=0.01&price=2000&recvWindow=5000&timestamp=1611825601400
+
+
+请注意，签名与示例3不同。
+"GTC"和"quantity = 1"之间没有＆。
+
 
 ## 公开API参数
 
@@ -127,6 +244,9 @@ MARKET_DATA | 需要有效的API-KEY
 * FILLED(5) 完全成交
 * CANCELLING(6) 撤单中
 * CANCELLED(7) 撤单完成
+
+
+
 
 
 # 行情接口
