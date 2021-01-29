@@ -636,92 +636,6 @@ limit | INT | NO | 交易记录条数 默认值:100 最大值:500 | 100
 
 
 
-
-# Websocket 账户信息推送
-
-## 生成 Listen Key (USER_STREAM)
-
->**响应:**
-
-```javascript
-{
-  "code": 0,
-  "msg": "success",
-  "data": {
-    "listenKey": "eBjOsjYmu1WD6oZHCRpMeWm4UzMvQelhOc9yTD4c"
-  }
-}
-```
-
-`POST /vapi/v1/userDataStream  (HMAC SHA256)`
-
-**权重:**
-1
-
-**参数:**
-
-名称 | 类型 | 是否必需 | 描述 |  示例
------------- | ------------ | ------------ | ------------ | ------------ 
-recvWindow | LONG | NO |  | 
-timestamp | LONG | YES |  | 
-
-
-
-## 延长 Listen Key 有效期 (USER_STREAM)
-
->**响应:**
-
-```javascript
-{
-  "code": 0,
-  "msg": "success"
-}
-```
-
-`PUT /vapi/v1/userDataStream`
-
-有效期延长至本次调用后60分钟
-
-**权重:**
-1
-
-**参数:**
-
-名称 | 类型 | 是否必需 | 描述 |  示例
------------- | ------------ | ------------ | ------------ | ------------ 
-listenKey | STRING | YES | Listen Key | eBjOsjYmu1WD6oZHCRpMeWm4UzMvQelhOc9yTD4c
-recvWindow | LONG | NO |  | 
-timestamp | LONG | YES |  | 
-
-
-
-## 关闭 Listen Key (USER_STREAM)
-
->**响应:**
-
-```javascript
-{
-  "code": 0,
-  "msg": "success"
-}
-```
-
-`DELETE /vapi/v1/userDataStream  (HMAC SHA256)`
-
-**权重:**
-1
-
-**参数:**
-
-名称 | 类型 | 是否必需 | 描述 |  示例
------------- | ------------ | ------------ | ------------ | ------------ 
-recvWindow | STRING | YES | Listen Key | eBjOsjYmu1WD6oZHCRpMeWm4UzMvQelhOc9yTD4c
-recvWindow | LONG | NO |  | 
-timestamp | LONG | YES |  | 
-
-
-
-
 # 账户和交易接口
 
 ## 账户资产信息(USER_DATA)
@@ -1443,7 +1357,7 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
             "stp":0,                        // selfTradePrevention
             "r":false,                      // 减仓
             "c":false,                      // 暂未使用
-            "s":0,                          // 状态
+            "s":0,                          // 状态 状态 0 初始订单 1下单失败  2 下单成功  3订单被拒绝 4 部分成交 5完全成交 6 撤单中  7 撤单成功 
             "e":"1",                        // 成交量
             "ec":"1",                       // 成交金额
             "f":"0.011"                     // 手续费
@@ -1451,6 +1365,29 @@ listenKey | STRING | YES | listenKey | "pqia91ma19a5s61cv6a81va65sdf19v8a65a1a5s
     ]
 }
 ```
+## Payload: 策略交易
+当下列情形发生时更新:
+订单变化 下单 撤单 成交
+
+{
+    "e":"STRATEGY_ORDER_TRADE_UPDATE",//事件类型
+    "E":1611746634599,//事件时间
+    "o":[
+        {
+            "id":"7", //id
+            "S":"symbol", //币种
+            "v":"1.03",//波动率
+            "q":"1", //量
+            "e":"0",//成交量
+            "s":1, //方向 1 long -1 short
+            "t":0,// 订单类型 0 波动率下单 
+            "c":1611736477000,//时间
+            "st":2, // 状态 状态 0 初始订单 1下单失败  2 下单成功  3订单被拒绝 4 部分成交 5完全成交 6 撤单中  7 撤单成功 8 订单无效
+            "sr":0// 订单来源 0 web 1 ios 2 android 3 pc 4 h5 5 MAC 6 API 
+        }
+    ]
+}
+
 ## 行情数据 Payload: 24小时TICKER
 ### 订阅一个信息流
 
