@@ -839,7 +839,7 @@ timestamp | LONG | YES |  |
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 side | ENUM | YES | 买卖方向 SELL, BUY | BUY
-type | ENUM | YES | 订单类型 LIMIT, MARKET | LIMIT
+type | ENUM | YES | 订单类型 LIMIT(仅支持LIMIT) | LIMIT
 quantity | DECIMAL | YES | 下单数量 | 3
 price | DECIMAL | NO | 委托价格 | 1000
 timeInForce | ENUM | NO | 有效方法（默认GTC） | GTC
@@ -906,7 +906,7 @@ timestamp | LONG | YES |  |
 ------------ | ------------ | ------------ | ------------ | ------------ 
 symbol | STRING | YES | 期权交易对 | BTC-200730-9000-C
 side | ENUM | YES | 买卖方向 SELL, BUY | BUY
-type | ENUM | YES | 订单类型 LIMIT, MARKET | LIMIT
+type | ENUM | YES | 订单类型 LIMIT(仅支持LIMIT) | LIMIT
 quantity | DECIMAL | YES | 下单数量 | 3
 price | DECIMAL | NO | 委托价格 | 1000
 timeInForce | ENUM | NO | 有效方法（默认GTC） | GTC
